@@ -94,6 +94,10 @@ a.morelink {
     grid-column: 2/3;
 
 }
+.card-body{
+    height: 200px;
+    overflow: scroll;
+}
 .dynamic{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;

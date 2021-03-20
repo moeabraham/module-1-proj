@@ -28,9 +28,9 @@ document.getElementById('form').addEventListener('submit',function(e){
 
 
     $.ajax(`https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${userTeam}`).then(function(data){
-
+if(data.teams === null) return alert('team not found');
     team = data.teams;
-  
+  console.log(data);
     getTeam(teamInput);
 
     // console.log(team)
@@ -78,12 +78,16 @@ function getDescription(teamInput){
 
 
 
-
-
-
     console.log(teamDisc)
 
     const neededDisc = teamDisc[0][0].toString();
+
+    const discription = document.querySelector('.card-text');
+    discription.textContent = `${neededDisc}`;
+    console.log( `${discription.toString().length}`)
+
+
+
         const stadInfo = teamDisc[0][4].toString();
         console.log(stadInfo)
         // const stadImg = 
@@ -92,6 +96,8 @@ function getDescription(teamInput){
         stadImg.src = `${stadInfo}`;
         stadImg.className = 'img-fluid';
         const stadParentElement = document.querySelector('.stadInfo')
+        stadParentElement.innerHTML='';
+
         stadParentElement.appendChild(stadImg);
 
     // console.log(neededDisc)
@@ -102,13 +108,12 @@ function getDescription(teamInput){
     img.src=`${imgTeam}`
     img.className = 'card-img-top'
     const parentElement = document.querySelector('.card');
+    // parentElement.innerHTML = '';
+
     parentElement.appendChild(img);
 
 
 
-    const discription = document.querySelector('.card-text');
-    discription.textContent = `${neededDisc}`;
-    console.log( `${discription.toString().length}`)
 
 
 
@@ -139,6 +144,8 @@ function getFacts(teamInput){
     // console.log(neededFacts)
     const div=document.getElementById('fiveFacts');
     const list = document.getElementById('factsList');
+    list.innerHTML = '';
+
 
     for(i=0; i<neededFacts.length;i++){
         // render(teamFacts)
