@@ -26,12 +26,26 @@ document.getElementById('form').addEventListener('submit',function(e){
 
 
     $.ajax(`https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${userTeam}`).then(function(data){
-    // if(data.teams === null) return alert('team not found');
-     team = data.teams;
+    // if(data.teams[0].teamStr !== null) return alert('team not found');
+    console.log(data.teams)
+    
+    // console.log(data.teams[0].strTeam)
+    // console.log(teamInput)
+    if(data.teams === null)
+    {
+        validate(teamInput,data);
+    } else 
+    {
+        team = data.teams;
+
+        getTeam(teamInput,team);
+
+    }
+    //  validate(teamInput,team);
 
 //   console.log(data);
 
-    getTeam(teamInput,team);
+    // getTeam(teamInput,team);
     
 
     },function(error){
@@ -41,7 +55,11 @@ document.getElementById('form').addEventListener('submit',function(e){
 
 });
 
+function validate(teamInput,teams){
+    console.log(teamInput)
+    console.log(teams)
 
+}
 function toUpperCas(str){
     return  str.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1) ).join(" ");
 }
@@ -84,24 +102,41 @@ function getTeam(teamInput,team){
 
     function render(newTeam,exactTeam,stadDisc,stadBadge,teamFacts,stadImg,stadName){
 
-        console.log(newTeam[0])
-        let $pageTeamName = $('#pageTeamName');
-        return`
-       <h1>sajsna</h1>
-        `
+        console.log(teamFacts)
+        // let $pageTeamName = $('#pageTeamName');
+            const html = `
+                <div class="title"><h1>${exactTeam}</h1></div>
+            `
 
-        // console.log(stadDisc)
-        // const html = newTeam.map(function(launch) {
+            const html2=`
+            <div class="card" style="width: 18rem;">
+            <img src="${stadBadge}" class="card-img-top" alt="..."> 
+            <div class="card-body">
+              <p class="card-text">${stadDisc}</p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+            </div>
+            <div id="fiveFacts">
+            <ul id="factsList">
+                <li class="fiveFacts">${teamFacts[0]}</li>
+                <li class="fiveFacts">${teamFacts[1]}</li>
+                <li class="fiveFacts">${teamFacts[2]}</li>
+                <li class="fiveFacts">${teamFacts[3]}</li>
+                <li class="fiveFacts">${teamFacts[4]}</li>
+            </ul>
 
-    //         return `
-    //     <div id="teamName">
-    //     <h1 id='pageTeamName'>${newTeam[0][3]}</h1>
-    // </div>
+        </div>
+        <div class="stadInfo">
+        <h2 id="stadTitle">${stadName}</h2>
+         <img  src="${stadImg}" class="img-fluid" alt="..."> 
+        </div>
 
-    //     `
-        // })
-
-        
+            
+            
+            
+            `
+            $('#title').html(html)
+            $('.dynamic').html(html2)
 
     };
     
