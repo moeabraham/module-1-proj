@@ -26,7 +26,7 @@ document.getElementById('form').addEventListener('submit',function(e){
     var userTeam = document.querySelector('.form-control').value.toLowerCase();
     var teamInput = toUpperCas(userTeam);
     // searchArr.push(teamInput);
-    // storeSearch(teamInput);
+    storeSearch(teamInput);
 
     // storeSearch(teamInput);
 
@@ -59,6 +59,8 @@ document.getElementById('form').addEventListener('submit',function(e){
 
         getTeam(teamInput,team);
         $('.form-control').val('');
+        // storeSearch(teamInput);
+
 
        
 
@@ -120,53 +122,35 @@ function getTeam(teamInput,team){
 
 
 
-
-    function render(newTeam,exactTeam,stadDisc,stadBadge,teamFacts,stadImg,stadName){
+    function render(newTeam, exactTeam, stadDisc, stadBadge, teamFacts, stadImg, stadName) {
+        const html = `<div class="title"><h1>${exactTeam}</h1></div>`
+        const html2 = `
+                <div class="card" style="width: 18rem;">
+                <img src="${stadBadge}" class="card-img-top" alt="..."> 
+                <div class="card-body">
+                  <p class="card-text">${stadDisc}</p>
+                </div>
+                </div>
+                <div id="fiveFacts">
+                <ul id="factsList">
+                    <li class="fiveFacts">${teamFacts[0]}</li>
+                    <li class="fiveFacts">${teamFacts[1]}</li>
+                    <li class="fiveFacts">${teamFacts[2]}</li>
+                    <li class="fiveFacts">${teamFacts[3]}</li>
+                    <li class="fiveFacts">${teamFacts[4]}</li>
+                </ul>
+            </div>
+            <div class="stadInfo">
+            <h2 id="stadTitle">${stadName}</h2>
+             <img  src="${stadImg}" class="img-fluid" alt="..."> 
+            </div>`;
+        const lastSearches = searchArr.map(item => `<li>${item}</li>`).join('');
+        const searchList = `<ul>${lastSearches}</ul>`;
+        $('#title').html(html)
+        $('.dynamic').html(html2 + searchList)
 
         
-        // let $pageTeamName = $('#pageTeamName');
-            const html = `
-                <div class="title"><h1>${exactTeam}</h1></div>
-            `
-
-            const html2=`
-            <div class="card" style="width: 18rem;">
-            <img src="${stadBadge}" class="card-img-top" alt="..."> 
-            <div class="card-body">
-              <p class="card-text">${stadDisc}</p>
-              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-            </div>
-            </div>
-            <div id="fiveFacts">
-            <ul id="factsList">
-                <li class="fiveFacts">${teamFacts[0]}</li>
-                <li class="fiveFacts">${teamFacts[1]}</li>
-                <li class="fiveFacts">${teamFacts[2]}</li>
-                <li class="fiveFacts">${teamFacts[3]}</li>
-                <li class="fiveFacts">${teamFacts[4]}</li>
-            </ul>
-
-        </div>
-        <div class="stadInfo">
-        <h2 id="stadTitle">${stadName}</h2>
-         <img  src="${stadImg}" class="img-fluid" alt="..."> 
-        </div>
-
-        <div class="lastSearches">
-        //         <li class="fiveSearches">${searches[0]}</li>
-        //         <li class="fiveSearches">${searches[1]}</li>
-        //         <li class="fiveSearches">${searches[2]}</li>
-        //         <li class="fiveSearches">${searches[3]}</li>
-        //         <li class="fiveSearches">${searches[4]}</li>
-            
-        //     // </div>
-            
-            `
-            $('#title').html(html)
-            $('.dynamic').html(html2)
-
-            storeSearch(teamInput);
-        };
+    };
 
 //         <div class="lastSearches">
 //         <li class="fiveSearches">${searches[0]}</li>
@@ -178,21 +162,33 @@ function getTeam(teamInput,team){
 //     // </div>
 
 
-
 function storeSearch(teamInput){
-    console.log(teamInput)
-    console.log(searchArr)
-
-    let searches;
     if(localStorage.getItem('searches') === null){
-        searches = [];
+        searchArr = [teamInput];
+        localStorage.setItem('searches', JSON.stringify(searchArr));
     } else {
-        searches = JSON.parse(localStorage.getItem('searches'))
+        searchArr = [teamInput, ...JSON.parse(localStorage.getItem('searches'))]
+        localStorage.setItem('searches', JSON.stringify(searchArr));
     }
-    searches.push(teamInput);
-    localStorage.setItem('searches',JSON.stringify(searches));
-
 }
+
+
+
+
+// function storeSearch(teamInput){
+//     console.log(teamInput)
+//     console.log(searchArr)
+
+//     let searches;
+//     if(localStorage.getItem('searches') === null){
+//         searches = [];
+//     } else {
+//         searches = JSON.parse(localStorage.getItem('searches'))
+//     }
+//     searches.push(teamInput);
+//     localStorage.setItem('searches',JSON.stringify(searches));
+
+// }
 
    
 
