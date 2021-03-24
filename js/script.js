@@ -9,10 +9,15 @@ var newTeam;
 let stadName;
 let pageTeamName;
 // var teamInput;
-
-
+let searches;
+var searchArr = [];
 document.getElementById('form').addEventListener('submit',function(e){
+
+    // var inputValue = document.querySelector('.form-control').value;
+
     
+
+    // searchArr.push()
 
   
     e.preventDefault();
@@ -21,24 +26,40 @@ document.getElementById('form').addEventListener('submit',function(e){
    
     var userTeam = document.querySelector('.form-control').value.toLowerCase();
     var teamInput = toUpperCas(userTeam);
+    // searchArr.push(teamInput);
+    // storeSearch(teamInput);
+
+    // storeSearch(teamInput);
+
+    // console.log(searchArr);
+
 
     let link = 'https://thesportsdb.com/api/v1/json/1/lookupteam.php?id=133604'
 
 
+
     $.ajax(`https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${userTeam}`).then(function(data){
     // if(data.teams[0].teamStr !== null) return alert('team not found');
-    console.log(data.teams)
-    
+    // console.log(inputValue)
+    // document.querySelector('.form-control').value = ''
     // console.log(data.teams[0].strTeam)
     // console.log(teamInput)
+
     if(data.teams === null)
-    {
-        validate(teamInput,data);
+    {          
+            const $parentElement = $('#alert');
+        const alert = ` <div class="disclaimer"><h1 id="disclaimer">Enter a valid team name</h1></div>`
+        $('#alert').html(alert);
+    setTimeout(function(){
+        $('#alert').remove()
+    },3000)
+
     } else 
     {
         team = data.teams;
 
         getTeam(teamInput,team);
+       
 
     }
     //  validate(teamInput,team);
@@ -55,11 +76,10 @@ document.getElementById('form').addEventListener('submit',function(e){
 
 });
 
-function validate(teamInput,teams){
-    console.log(teamInput)
-    console.log(teams)
+// function validate(teamInput,teams){
 
-}
+
+// }
 function toUpperCas(str){
     return  str.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1) ).join(" ");
 }
@@ -68,11 +88,9 @@ function toUpperCas(str){
 
 function getTeam(teamInput,team){
 
-    // console.log(teamInput,team)
 
         // let pageTeam = team[0];
         // console.log(team);
-
     let newTeam =  team.filter(team => team.strTeam === teamInput).map(team => {
           
         return [team.strTeam,team.strDescriptionEN,team.strTeamBadge,team.strStadium,team.strStadiumLocation,team.strStadiumThumb,team.strAlternate,team.strCountry,team.intFormedYear,team.strLeague,team.strWebsite]
@@ -93,6 +111,7 @@ function getTeam(teamInput,team){
       const stadName = newTeam[0][3].toString();
     //   console.log(stadName)
                 render(newTeam,exactTeam,stadDisc,stadBadge,teamFacts,stadImg,stadName);
+
     //   console.log(stadName)
     
     }
@@ -102,7 +121,7 @@ function getTeam(teamInput,team){
 
     function render(newTeam,exactTeam,stadDisc,stadBadge,teamFacts,stadImg,stadName){
 
-        console.log(teamFacts)
+        
         // let $pageTeamName = $('#pageTeamName');
             const html = `
                 <div class="title"><h1>${exactTeam}</h1></div>
@@ -131,18 +150,42 @@ function getTeam(teamInput,team){
          <img  src="${stadImg}" class="img-fluid" alt="..."> 
         </div>
 
-            
-            
+    
             
             `
             $('#title').html(html)
             $('.dynamic').html(html2)
 
-    };
+            // storeSearch(teamInput);
+        };
+
+//         <div class="lastSearches">
+//         <li class="fiveSearches">${searches[0]}</li>
+//         <li class="fiveSearches">${searches[1]}</li>
+//         <li class="fiveSearches">${searches[2]}</li>
+//         <li class="fiveSearches">${searches[3]}</li>
+//         <li class="fiveSearches">${searches[4]}</li>
     
+//     // </div>
+
+// // function storeSearch(teamInput){
+//     console.log(teamInput)
+//     console.log(searchArr)
+
+//     let searches;
+//     if(localStorage.getItem('searches') === null){
+//         searches = [];
+//     } else {
+//         searches = JSON.parse(localStorage.getItem('searches'))
+//     }
+//     searches.push(teamInput);
+//     localStorage.setItem('searches',JSON.stringify(searches));
+
+// }
 
 
 
+   
 
 
 

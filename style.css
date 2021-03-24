@@ -133,3 +133,11 @@ a.morelink {
 .card-body{
     order:2;
 }
+
+#disclaimer{
+    color:white;
+    background-color:red;
+    font-size:20px;
+    margin-top:10px;
+
+}
