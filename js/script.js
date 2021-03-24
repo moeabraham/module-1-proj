@@ -15,7 +15,6 @@ document.getElementById('form').addEventListener('submit',function(e){
 
     // var inputValue = document.querySelector('.form-control').value;
 
-    
 
     // searchArr.push()
 
@@ -59,6 +58,8 @@ document.getElementById('form').addEventListener('submit',function(e){
         team = data.teams;
 
         getTeam(teamInput,team);
+        $('.form-control').val('');
+
        
 
     }
@@ -115,6 +116,7 @@ function getTeam(teamInput,team){
     //   console.log(stadName)
     
     }
+    
 
 
 
@@ -150,13 +152,20 @@ function getTeam(teamInput,team){
          <img  src="${stadImg}" class="img-fluid" alt="..."> 
         </div>
 
-    
+        <div class="lastSearches">
+        //         <li class="fiveSearches">${searches[0]}</li>
+        //         <li class="fiveSearches">${searches[1]}</li>
+        //         <li class="fiveSearches">${searches[2]}</li>
+        //         <li class="fiveSearches">${searches[3]}</li>
+        //         <li class="fiveSearches">${searches[4]}</li>
+            
+        //     // </div>
             
             `
             $('#title').html(html)
             $('.dynamic').html(html2)
 
-            // storeSearch(teamInput);
+            storeSearch(teamInput);
         };
 
 //         <div class="lastSearches">
@@ -168,22 +177,22 @@ function getTeam(teamInput,team){
     
 //     // </div>
 
-// // function storeSearch(teamInput){
-//     console.log(teamInput)
-//     console.log(searchArr)
-
-//     let searches;
-//     if(localStorage.getItem('searches') === null){
-//         searches = [];
-//     } else {
-//         searches = JSON.parse(localStorage.getItem('searches'))
-//     }
-//     searches.push(teamInput);
-//     localStorage.setItem('searches',JSON.stringify(searches));
-
-// }
 
 
+function storeSearch(teamInput){
+    console.log(teamInput)
+    console.log(searchArr)
+
+    let searches;
+    if(localStorage.getItem('searches') === null){
+        searches = [];
+    } else {
+        searches = JSON.parse(localStorage.getItem('searches'))
+    }
+    searches.push(teamInput);
+    localStorage.setItem('searches',JSON.stringify(searches));
+
+}
 
    
 
