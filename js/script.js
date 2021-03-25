@@ -123,7 +123,10 @@ function getTeam(teamInput,team){
 
 
     function render(newTeam, exactTeam, stadDisc, stadBadge, teamFacts, stadImg, stadName) {
+
+
         const html = `<div class="title"><h1>${exactTeam}</h1></div>`
+
         const html2 = `
                 <div class="card" style="width: 18rem;">
                 <img src="${stadBadge}" class="card-img-top" alt="..."> 
@@ -144,12 +147,13 @@ function getTeam(teamInput,team){
             <h2 id="stadTitle">${stadName}</h2>
              <img  src="${stadImg}" class="img-fluid" alt="..."> 
             </div>`;
+
         const lastSearches = searchArr.map(item => `<li>${item}</li>`).join('');
         const searchList = `<ul>${lastSearches}</ul>`;
         $('#title').html(html)
         $('.dynamic').html(html2 + searchList)
 
-        
+
     };
 
 //         <div class="lastSearches">
