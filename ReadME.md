@@ -1,4 +1,4 @@
-☐ <Your app's title>: Tead Data is the name of the app, it works on retrieving information regarding the soccer team of choice by the user
+ Tead Data is the name of the app, it works on retrieving some information regarding the soccer team of choice by the user
 
 ☐ Technologies Used: HTML,CSS,Bootstrap JavaScript, Jquery
 ☐ Screenshot(s): 
